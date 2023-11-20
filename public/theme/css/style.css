@@ -1,0 +1,72 @@
+.bg-gray{
+    background-color: #BCCAD8;
+}
+
+body{
+    font-family: 'Quicksand', sans-serif;
+}
+
+.border-warning{
+    background-color: #6777EF;
+}
+
+.bg-wraper{
+    background-color: #F3F3F3;
+}
+
+.slider{
+    margin-top: 150px;
+}
+
+
+.detail-product{
+    margin-top: 170px;
+}
+
+.price-diskon{
+    text-decoration: line-through red;
+}
+.bg-orange{
+    background-color: #6777EF;
+}
+.card {
+    
+    border: 1px solid #ccc; /* Tambahkan border jika diinginkan */
+    border-radius: 10px; /* Tambahkan border-radius jika diinginkan */
+    overflow: hidden; /* Mengatasi masalah overflow jika gambar memiliki ukuran yang berbeda */
+}
+
+
+
+.btn-primary{
+    background-color: #6777EF;
+    border-color: #6777EF;
+}
+.btn-primary:active{
+    background-color: #6777EF;
+    border-color: #6777EF;
+}
+.btn-primary:hover{
+    background-color: #6777EF;
+    border-color: #6777EF;
+}
+.btn-primary:focus{
+    background-color: #6777EF;
+    border-color: #6777EF;
+}
+
+.card-img img {
+    width: 100%; /* Membuat gambar mengisi lebar kartu */
+    height: auto; /* Mengatur tinggi gambar secara otomatis sesuai dengan lebar */
+}
+
+.product {
+    margin-top: 10px;
+}
+
+.all-product{
+    margin-top: 130px;
+}
+.wraper{
+    margin-top: 130px;
+}
