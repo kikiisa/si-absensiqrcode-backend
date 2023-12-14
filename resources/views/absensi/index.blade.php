@@ -13,8 +13,35 @@
                                data-bs-target="#tambahAbsensi">
                                Tambah Absensi
                            </button>
-                           <button class="btn btn-outline-dark mb-2" type="submit" name="q" value="cetak"><i class="fa fa-print"></i>Rekap Data</button>
+                           <button class="btn btn-outline-dark mb-2" type="submit" name="q" value="cetak"><i class="fa fa-print"></i>Rekap Semua Data</button>
                        </form>
+                       <form method="get">
+                        <div class="row">
+                            <div class="form-group col-lg-3">
+                                <label for="year">Select Year:</label>
+                                <select class="form-control" id="year" name="year">
+                                    @for ($i = date('Y'); $i >= 2010; $i--)
+                                        <option value="{{ $i }}">{{ $i }}</option>
+                                    @endfor
+                                </select>
+                            </div>
+                        
+                            <div class="form-group col-lg-3">
+                                <label for="month">Select Month:</label>
+                                <select class="form-control" id="month" name="month">
+                                    @for ($m = 1; $m <= 12; $m++)
+                                        <option value="{{ $m }}">{{ date('F', mktime(0, 0, 0, $m, 1)) }}</option>
+                                    @endfor
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline-dark mt-2" type="submit" name="rekap" value="cetak">
+                            <i class="fa fa-print"></i> Rekap Data
+                        </button>
+                        <button class="btn btn-outline-dark mt-2" type="submit" name="cetak" value="cetak">
+                            <i class="fa fa-print"></i> Cetak
+                        </button>
+                    </form>
                         <div class="table-responsive">
                             <table class="table" id="table">
                                 <thead>

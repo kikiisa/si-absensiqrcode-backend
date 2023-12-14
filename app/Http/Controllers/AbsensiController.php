@@ -17,15 +17,27 @@ class AbsensiController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->get('q') == 'cetak')
-        {
+        if ($request->has('rekap') || $request->has('cetak')) {
+            $bulan = $request->get('month');
+            $tahun = $request->get('year');
+
+            $query = Absensi::with('pegawai');
+
+            if ($request->has('rekap')) {
+                $query->whereMonth('tgl_absen', $bulan)->whereYear('tgl_absen', $tahun);
+                $view = 'absensi.index';
+            } elseif ($request->has('cetak')) {
+                $query->whereMonth('tgl_absen', $bulan)->whereYear('tgl_absen', $tahun);
+                $view = 'absensi.report';
+            }
+            $data = $query->get();
+        } else {
             $data = Absensi::with('pegawai')->get();
-            return view('absensi.report',compact('data'));
-        }else{
-            $pegawai = Pegawai::all()->where('status',1);
-            $data = Absensi::with('pegawai')->get();
-            return view('absensi.index',compact('data','pegawai'));
+            $view = 'absensi.index';
         }
+        $pegawai = Pegawai::all()->where('status',1);
+        return view($view, compact('data', 'pegawai'));
+        
     }
 
     /**
