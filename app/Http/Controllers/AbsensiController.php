@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Absensi;
 use App\Models\Pegawai;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
 
 class AbsensiController extends Controller
 {
@@ -20,8 +22,9 @@ class AbsensiController extends Controller
             $data = Absensi::with('pegawai')->get();
             return view('absensi.report',compact('data'));
         }else{
+            $pegawai = Pegawai::all()->where('status',1);
             $data = Absensi::with('pegawai')->get();
-            return view('absensi.index',compact('data'));
+            return view('absensi.index',compact('data','pegawai'));
         }
     }
 
@@ -43,7 +46,25 @@ class AbsensiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $check = Absensi::where('pegawai_id',$request->pegawai_id)->
+        whereDate('created_at', Carbon::today());
+        if($check->count() > 0)
+        {
+            return redirect()->route('daftar-absensi.index')->with('error','Sudah Melakukan Absensi');
+        }else{
+            $data = Absensi::create([
+                'uuid' => Uuid::uuid4()->toString(),
+                'pegawai_id' => $request->pegawai_id,
+                'tgl_absen' => Carbon::today(),
+                'status' => $request->status
+            ]);
+            if($data)
+            {
+                return redirect()->route('daftar-absensi.index')->with('success','Berhasil!');
+            }else{
+                return redirect()->route('daftar-absensi.index')->with('error','Gagal!');
+            }
+        }
     }
 
     /**

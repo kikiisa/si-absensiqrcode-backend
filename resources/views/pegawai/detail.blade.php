@@ -3,18 +3,39 @@
 <section class="wraper">
     <section class="product-list">
         <div class="container">
-            <h4>Daftar Absensi Pegawai</h4>
+            <h4>Daftar Absensi Pegawai <strong>{{$pegawai->name}}</strong></h4>
             <hr>
             <div class="row justify-content-center">
                 <div class="card">
                     <div class="card-body">
-                        <form  method="get">
-                           <button type="button" class="btn btn-dark fw-bold mb-2" data-bs-toggle="modal"
-                               data-bs-target="#tambahAbsensi">
-                               Tambah Absensi
-                           </button>
-                           <button class="btn btn-outline-dark mb-2" type="submit" name="q" value="cetak"><i class="fa fa-print"></i>Rekap Data</button>
-                       </form>
+                        <form method="get">
+                            <div class="row">
+                                <div class="form-group col-lg-3">
+                                    <label for="year">Select Year:</label>
+                                    <select class="form-control" id="year" name="year">
+                                        @for ($i = date('Y'); $i >= 2010; $i--)
+                                            <option value="{{ $i }}">{{ $i }}</option>
+                                        @endfor
+                                    </select>
+                                </div>
+                            
+                                <div class="form-group col-lg-3">
+                                    <label for="month">Select Month:</label>
+                                    <select class="form-control" id="month" name="month">
+                                        @for ($m = 1; $m <= 12; $m++)
+                                            <option value="{{ $m }}">{{ date('F', mktime(0, 0, 0, $m, 1)) }}</option>
+                                        @endfor
+                                    </select>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline-dark mt-2" type="submit" name="rekap" value="cetak">
+                                <i class="fa fa-print"></i> Rekap Data
+                            </button>
+                            <button class="btn btn-outline-dark mt-2" type="submit" name="cetak" value="cetak">
+                                <i class="fa fa-print"></i> Cetak
+                            </button>
+                        </form>
+                        
                         <div class="table-responsive">
                             <table class="table" id="table">
                                 <thead>
@@ -39,17 +60,16 @@
                                             <td>{{$x->masuk}}</td>
                                             <td>{{$x->keluar}}</td>
                                             <td>
-                                               
                                                 @if ($x->status == 'terlambat')
-                                                    <div class="fw-bold btn btn-danger text-white">Terlambat</div>
+                                                    <div class="badge bg-danger text-white">Terlambat</div>
                                                 @elseif($x->status == 'hadir')
-                                                    <div class="fw-bold btn btn-success text-white">Hadir</div>    
+                                                    <div class="badge bg-success text-white">Hadir</div>    
                                                 @elseif ($x->status == 'sakit')
-                                                    <div class="fw-bold btn btn-warning text-white">Sakit</div>
+                                                    <div class="badge bg-warning text-white">Sakit</div>
                                                 @elseif ($x->status == 'perjalanan_dinas')
-                                                    <div class="fw-bold btn btn-dark text-white">Perjanalan Dinas</div>
+                                                    <div class="badge bg-dark text-white">Perjalanan Dinas</div>
                                                 @else
-                                                    <div class="fw-bold btn btn-info text-white">Izin</div>
+                                                    <div class="badge bg-info text-white">Izin</div>
                                                 @endif
                                                 
                                             </td>
@@ -73,61 +93,6 @@
             </div>
         </div>
     </section>
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Foto Absensi Pegawai</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                   <img  alt="foto"  class="foto w-100">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="tambahAbsensi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Management Absensi</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="{{Route('daftar-absensi.store')}}" method="post">
-                    @csrf
-                    @method("POST")
-                    <div class="modal-body">
-                       <div class="form-group">
-                            <label for="nama">Nama Pegawai</label>
-                            <select required name="pegawai_id" id="pegawai_id" class="form-control">
-                                <option value="">-- Pilih Pegawai --</option>
-                                @foreach ($pegawai as $item)
-                                    <option value="{{$item->id}}">{{$item->name}}</option>
-                                @endforeach
-                            </select>
-                       </div>
-                       <div class="form-group">
-                            <label for="nama">Status Absensi</label>
-                            <select required name="status" id="status" class="form-control">
-                                <option value="">-- Pilih Status Pegawai --</option>
-                                <option value="izin">Izin</option>
-                                <option value="sakit">Sakit</option>
-                                <option value="perjalanan_dinas">Perjalanan Dinas</option>
-                             
-                            </select>
-                       </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary">simpan</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
     <script>
         const foto = document.querySelector(".foto")
         const showFotoMasuk = (files) => 

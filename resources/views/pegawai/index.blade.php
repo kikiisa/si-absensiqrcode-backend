@@ -43,6 +43,7 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <a href="{{Route('pegawai.edit', $x->uuid)}}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                                    <a href="{{Route('pegawai.show',$x->uuid)}}" class="btn btn-info"><i class="fa fa-eye"></i></a>
                                                     <button class="btn btn-danger"><i class="fa fa-trash" onclick="return confirm('apakah akan mengahpus data ini?')"></i></button>
                                                 </form>
                                                 
@@ -85,7 +86,7 @@
                             </div>
                             <div class="form-group mb-3">
                                 <label class="fw-bold">Nomor HP</label>
-                                <input required type="text" placeholder="Enter Immei HP" name="immei" class="form-control">
+                                <input required type="text" placeholder="Pegawai HP" name="immei" class="form-control">
                             </div>
                             <button class="btn btn-dark">simpan</button>
                         </form>

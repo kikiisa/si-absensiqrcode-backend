@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Absensi;
 use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
@@ -16,7 +17,7 @@ class PegawaiController extends Controller
     public function index()
     {
         $data = Pegawai::all();
-        return view('pegawai.index',compact('data'));
+        return view('pegawai.index', compact('data'));
     }
 
     /**
@@ -51,13 +52,11 @@ class PegawaiController extends Controller
             'nomor' => $request->nomor,
             'email' => $request->email,
         ]);
-        if($data)
-        {
-            return redirect()->route('pegawai.index')->with('success','Berhasil!');
-        }else{
-            return redirect()->route('pegawai.index')->with('error','Gagal!');
+        if ($data) {
+            return redirect()->route('pegawai.index')->with('success', 'Berhasil!');
+        } else {
+            return redirect()->route('pegawai.index')->with('error', 'Gagal!');
         }
-        
     }
 
     /**
@@ -66,9 +65,30 @@ class PegawaiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        //
+        $pegawai = Pegawai::where('uuid', $id)->first();
+
+        if ($request->has('rekap') || $request->has('cetak')) {
+            $bulan = $request->get('month');
+            $tahun = $request->get('year');
+
+            $query = Absensi::with('pegawai')->where('pegawai_id', $pegawai->id);
+
+            if ($request->has('rekap')) {
+                $query->whereMonth('tgl_absen', $bulan)->whereYear('tgl_absen', $tahun);
+                $view = 'pegawai.detail';
+            } elseif ($request->has('cetak')) {
+                $query->whereMonth('tgl_absen', $bulan)->whereYear('tgl_absen', $tahun);
+                $view = 'absensi.report';
+            }
+
+            $data = $query->get();
+        } else {
+            $data = Absensi::with('pegawai')->where('pegawai_id', $pegawai->id)->get();
+            $view = 'pegawai.detail';
+        }
+        return view($view, compact('data', 'pegawai'));
     }
 
     /**
@@ -79,8 +99,8 @@ class PegawaiController extends Controller
      */
     public function edit($id)
     {
-        $data = Pegawai::all()->where('uuid',$id)->first();
-        return view('pegawai.edit',compact('data'));
+        $data = Pegawai::all()->where('uuid', $id)->first();
+        return view('pegawai.edit', compact('data'));
     }
 
     /**
@@ -94,11 +114,10 @@ class PegawaiController extends Controller
     {
         $data  = Pegawai::find($id);
         $data->update($request->all());
-        if($data)
-        {
-            return redirect()->route('pegawai.index')->with('success','Berhasil!');
-        }else{
-            return redirect()->route('pegawai.index')->with('error','Gagal!');
+        if ($data) {
+            return redirect()->route('pegawai.index')->with('success', 'Berhasil!');
+        } else {
+            return redirect()->route('pegawai.index')->with('error', 'Gagal!');
         }
     }
 
@@ -112,11 +131,14 @@ class PegawaiController extends Controller
     {
         $data  = Pegawai::find($id);
         $data->delete();
-        if($data)
-        {
-            return redirect()->route('pegawai.index')->with('success','Berhasil!');
-        }else{
-            return redirect()->route('pegawai.index')->with('error','Gagal!');
+        if ($data) {
+            return redirect()->route('pegawai.index')->with('success', 'Berhasil!');
+        } else {
+            return redirect()->route('pegawai.index')->with('error', 'Gagal!');
         }
+    }
+
+    public function detail(Request $request)
+    {
     }
 }

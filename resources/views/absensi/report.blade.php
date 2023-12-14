@@ -18,6 +18,7 @@
         }
     }
 </style>
+
 <body>
     <div class="container">
         <h4 class="text-center mt-4 py-4">REKAP DATA ABSENSI PEGAWAI</h4>
@@ -46,13 +47,18 @@
                             <td>{{ $x->keluar }}</td>
                             <td>
                                 @if ($x->status == 'terlambat')
-                                   Terlambat
+                                    <div class="badge bg-danger text-white">Terlambat</div>
+                                @elseif($x->status == 'hadir')
+                                    <div class="badge bg-success text-white">Hadir</div>
+                                @elseif ($x->status == 'sakit')
+                                    <div class="badge bg-warning text-white">Sakit</div>
+                                @elseif ($x->status == 'perjalanan_dinas')
+                                    <div class="badge bg-warning text-white">Perjalanan Dinas</div>
                                 @else
-                                    Hadir
+                                    <div class="badge bg-info text-white">Izin</div>
                                 @endif
-
                             </td>
-                          
+
                         </tr>
                     @endforeach
                 </tbody>

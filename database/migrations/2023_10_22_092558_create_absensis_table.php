@@ -19,11 +19,11 @@ class CreateAbsensisTable extends Migration
             $table->uuid('uuid');
             $table->foreignId('pegawai_id');
             $table->date('tgl_absen');
-            $table->time('masuk');
+            $table->time('masuk')->nullable();
             $table->time('keluar')->nullable();
             $table->string('foto_masuk')->nullable();
             $table->string('foto_keluar')->nullable();
-            $table->enum('status',['alpa','hadir','terlambat'])->default(null);
+            $table->enum('status',['alpa','hadir','terlambat','sakit','izin','perjalanan_dinas'])->default(null);
             $table->timestamps();
         });
     }
