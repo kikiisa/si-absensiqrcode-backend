@@ -20,8 +20,15 @@
 </style>
 
 <body>
-    <div class="container">
-        <h4 class="text-center mt-4 py-4">REKAP DATA ABSENSI PEGAWAI</h4>
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-1">
+                <img src="{{ asset('theme/img/logo.png') }}" class="mt-2" width="90" alt="" srcset="">
+            </div>
+            <div class="col-lg-6">
+                <h4 class="text-center mt-4 py-4">REKAP DATA ABSENSI PEGAWAI</h4>
+            </div>
+        </div>
         <hr>
         <div class="table-responsive">
             <table class="table" id="table">
@@ -65,9 +72,9 @@
             </table>
         </div>
     </div>
-    <script>
+    {{-- <script>
         window.print()
-    </script>
+    </script> --}}
 </body>
 
 </html>

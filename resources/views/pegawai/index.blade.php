@@ -20,7 +20,7 @@
                                         <th scope="col">NIP</th>
                                         <th scope="col">NAMA LENGKAP</th>
                                         <th scope="col">PHONE</th>
-                                        <th scope="col">STATUS</th>
+                                       
                                         <th scope="col">AKSI</th>
                                     </tr>
                                 </thead>
@@ -31,13 +31,7 @@
                                             <td>{{$x->nomor}}</td>
                                             <td>{{$x->name}}</td>
                                             <td>{{$x->immei}}</td>
-                                            <td>
-                                                @if ($x->status == 1)
-                                                    <span class="badge bg-success">Aktif</span>
-                                                @else
-                                                    <span class="badge bg-danger">Tidak Aktif</span>
-                                                @endif
-                                            </td>
+                                           
                                             <td>
                                                 <form action="{{Route('pegawai.destroy', $x->id)}}" method="post">
                                                     @csrf

@@ -21,7 +21,7 @@ class CreatePegawaisTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('immei');
-            $table->enum('status',[1,0])->default(0);
+            $table->enum('status',[1,0])->default(1);
             $table->timestamps();
         });
     }
