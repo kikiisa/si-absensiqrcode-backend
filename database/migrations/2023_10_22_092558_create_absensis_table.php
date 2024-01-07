@@ -23,6 +23,7 @@ class CreateAbsensisTable extends Migration
             $table->time('keluar')->nullable();
             $table->string('foto_masuk')->nullable();
             $table->string('foto_keluar')->nullable();
+            $table->text("deskripsi")->nullable();
             $table->enum('status',['alpa','hadir','terlambat','sakit','izin','perjalanan_dinas'])->default(null);
             $table->timestamps();
         });

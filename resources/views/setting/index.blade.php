@@ -5,7 +5,6 @@
             <div class="row">
                 <div class="col-lg-8 col-12 mb-3">
                     <div class="card border-0">
-                       
                         <div class="card-body">
                             <form action="{{ Route('pengaturan.update', $data->id) }}" method="post">
                                 @csrf

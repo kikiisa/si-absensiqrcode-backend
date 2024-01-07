@@ -25,8 +25,9 @@
             <div class="col-lg-1">
                 <img src="{{ asset('theme/img/logo.png') }}" class="mt-2" width="90" alt="" srcset="">
             </div>
-            <div class="col-lg-6">
-                <h4 class="text-center mt-4 py-4">REKAP DATA ABSENSI PEGAWAI</h4>
+            <div class="col-lg-8 text-center">
+                <h4>Dinas Penanaman Modal Perizinan Terpadu <br>Satu Pintu Dan Ketenaga Kerjaan Kabupaten Bone Bolango</h4>
+                <h4 class="text-center">REKAP DATA ABSENSI PEGAWAI</h4>
             </div>
         </div>
         <hr>

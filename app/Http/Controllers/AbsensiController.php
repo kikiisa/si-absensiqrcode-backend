@@ -68,7 +68,8 @@ class AbsensiController extends Controller
                 'uuid' => Uuid::uuid4()->toString(),
                 'pegawai_id' => $request->pegawai_id,
                 'tgl_absen' => Carbon::today(),
-                'status' => $request->status
+                'status' => $request->status,
+                'deskripsi' => $request->deskripsi
             ]);
             if($data)
             {

@@ -13,7 +13,6 @@
                                data-bs-target="#tambahAbsensi">
                                Tambah Absensi
                            </button>
-                           <button class="btn btn-outline-dark mb-2" type="submit" name="q" value="cetak"><i class="fa fa-print"></i>Rekap Semua Data</button>
                        </form>
                        <form method="get">
                         <div class="row">
@@ -53,6 +52,7 @@
                                         <th scope="col">WAKTU MASUK</th>
                                         <th scope="col">WAKTU KELUAR</th>
                                         <th scope="col">STATUS</th>
+                                        <th scope="col">KETERANGAN</th>
                                         <th scope="col">FOTO</th>
                                     </tr>
                                 </thead>
@@ -79,6 +79,9 @@
                                                     <div class="fw-bold btn btn-info text-white">Izin</div>
                                                 @endif
                                                 
+                                            </td>
+                                            <td>
+                                                {{$x->deskripsi}}
                                             </td>
                                             <td>
                                                 <button type="button" onclick="return showFotoMasuk('{{$x->foto_masuk}}')" class="btn btn-primary fw-bold" data-bs-toggle="modal"
@@ -143,8 +146,13 @@
                                 <option value="izin">Izin</option>
                                 <option value="sakit">Sakit</option>
                                 <option value="perjalanan_dinas">Perjalanan Dinas</option>
-                             
                             </select>
+                       </div>
+                       <div class="form-group">
+                        <label for="">Keterangan</label>
+                        <textarea required name="deskripsi" class="form-control"  cols="30" rows="10">
+
+                        </textarea>
                        </div>
                     </div>
                     <div class="modal-footer">
