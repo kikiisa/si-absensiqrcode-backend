@@ -14,4 +14,10 @@ class Pegawai extends Model
     {
         return $this->hasMany(Absensi::class,'pegawai_id');
     }
+
+    public function delete()
+    {
+        $this->absensi()->delete();
+        parent::delete();
+    }
 }
